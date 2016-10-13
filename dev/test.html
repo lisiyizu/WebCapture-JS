@@ -1,0 +1,28 @@
+<div id="camdemo" style="width: 320px; height: 240px; text-align: center; margin: 0 auto;"></div>
+<br>
+<div style="text-align:center;">
+    <input type="button" id="start" value="Start / Shut down camera"/>
+</div>
+<script>
+
+    // A flag to know when start or stop the camera
+var enabled = false;
+// Use require to add webcamjs
+var WebCamera = require("webcamjs");
+
+document.getElementById("start").addEventListener('click',function(){
+   if(!enabled){ // Start the camera !
+     enabled = true;
+     WebCamera.attach('#camdemo');
+     console.log("The camera has been started");
+   }else{ // Disable the camera !
+     enabled = false;
+     WebCamera.reset();
+    console.log("The camera has been disabled");
+   }
+},false);
+</script>
+
+
+
+ 

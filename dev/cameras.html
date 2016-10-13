@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>执行Firefox浏览器中的录像功能</title>
+</head>
+<body>
+<h2>执行Firefox浏览器中的录像功能</h2>
+<button id="start_button" onclick="startVideo()">开始视频</button>
+<button id="stop_button" onclick="stopVideo()">停止视频</button> 
+<button id="start_record_button" onclick="startRecording()">开始录像</button>
+<button id="stop_record_button" onclick="stopRecording()">停止录像</button>
+<button id="play_button" onclick="playRecorded()">播放</button>
+<a href="#" id="downloadlink" class="download">下载录像</a>
+<br />
+<video id="local_video" width="320px" height="240px" autoplay="1" style="border: 1px solid;"></video>
+<video id="playback_video" width="320px" height="240px" autoplay="1" style="border: 1px solid;"></video>
+</body>
+<script>
+navigator.getUserMedia  = navigator.getUserMedia    || navigator.webkitGetUserMedia ||
+                           navigator.mozGetUserMedia || navigator.msGetUserMedia;
+ 
+var localVideo =  document.getElementById('local_video');
+var playbackVideo =  document.getElementById('playback_video');
+var anchor = document.getElementById('downloadlink');
+var localStream = null;
+var recorder =  null;
+var blobUrl = null;
+ 
+ 
+function startRecording() {
+    if (! localStream) {
+        console.warn("没有视频流");
+        return;
+    }
+    if (recorder) {
+        console.warn("录像过程已开始");
+        return;
+    } 
+    recorder = new MediaRecorder(localStream);
+    recorder.ondataavailable = function(evt) {
+        console.log("数据可用，开始播放");
+        var videoBlob = new Blob([evt.data], { type: evt.data.type });
+        blobUrl = window.URL.createObjectURL(videoBlob);
+        playbackVideo.src = blobUrl;
+        playbackVideo.onended = function() {
+            playbackVideo.pause();
+            playbackVideo.src = "";
+        };
+ 
+        anchor.download = 'recorded.webm';
+        anchor.href = blobUrl;
+ 
+        playbackVideo.play();
+    }
+    recorder.start();
+    console.log("开始录像");
+}
+ 
+function stopRecording() {
+    if (recorder) {
+        recorder.stop();
+        console.log("停止录像");
+   }
+}
+ 
+function playRecorded() {
+    if (blobUrl) {
+        playbackVideo.src = blobUrl;
+        playbackVideo.onended = function() {
+            playbackVideo.pause();
+            playbackVideo.src = "";
+        };
+        playbackVideo.play();
+    }
+}
+ 
+//请求媒体数据
+function startVideo() {
+    navigator.getUserMedia({video: true, audio: true}, showMedia, errCallback);
+}
+ 
+function showMedia(stream) {
+    localStream  = stream;
+    localVideo.src = window.URL.createObjectURL(stream);
+}
+ 
+var errCallback = function(e) {
+    console.log('媒体错误', e);
+};
+ 
+ 
+function stopVideo() {
+    if (localStream) {
+        localVideo.pause();
+        localVideo.src = "";
+        localStream.stop();
+        localStream = null;
+    }
+} 
+</script>
+</html>

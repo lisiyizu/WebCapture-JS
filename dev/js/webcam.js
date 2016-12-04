@@ -458,6 +458,7 @@ window.$ = window.jQuery = require('./jquery.min.js');
 
 				// default error handler if no custom one specified
 				alert("Webcam.js Error: " + message);
+				console.log(message)
 			}
 
 			return false; // no hook defined

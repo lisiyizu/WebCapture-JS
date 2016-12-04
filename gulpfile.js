@@ -3,7 +3,7 @@ var gulp = require('gulp');
 var uglify = require('gulp-uglify');
 var path = require('path');
 var concat = require('gulp-concat');
-// var connect = require('gulp-connect');
+var connect = require('gulp-connect');
 var less = require('gulp-less');
 var cleancss = require('gulp-clean-css');
 var rename = require('gulp-rename');
@@ -75,16 +75,16 @@ gulp.task('pages', function () {
 });
 
 //http 前端服务器
-// gulp.task('connect', function () {
-//     connect.server({
-//         root: './app', //根目录
-//         livereload: true //是否更改自动刷新页面
-//     });
-// });
+gulp.task('connect', function () {
+    connect.server({
+        root: './app', //根目录
+        livereload: true //是否更改自动刷新页面
+    });
+});
 
 gulp.task('reload', function () {
     gulp.src('./app/**/*')
-    // .pipe(connect.reload());
+    .pipe(connect.reload());
 });
 
 //输出日志
@@ -106,7 +106,7 @@ gulp.task('watch', function () {
 var tasks = ['pages', 'js','wav', 'less', 'img', 'fonts'];
 
 if (env == "dev") {
-    // tasks.push("connect", "reload", "watch");
+    tasks.push("connect", "reload", "watch");
     tasks.push("reload", "watch");
 }
 gulp.task('default', tasks);

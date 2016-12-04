@@ -3,7 +3,8 @@
     padding: 0;
 }
 
-html, body {
+html,
+body {
     height: 100%;
     width: 100%;
     -webkit-user-select: none;
@@ -17,216 +18,148 @@ html, body {
     -webkit-border-radius: 3px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    -moz-font-feature-settings: 'liga', 'kern';
+    -moz-font-feature-setting: 'liga', 'kern';
 }
 
-div {
-    //  background-color: rgba(88, 88, 88, 1);
-}
-
-input, button, .tool span {
+input,
+button,
+.tool span {
     -webkit-app-region: no-drag;
 }
 
-ul, li {
-    list-style: none;
-    white-space: nowrap;
-}
-
-body {
-    position: relative;
-    background: url(../img/logo.png) 35px 20px no-repeat;
-}
-
-//main
-.panle {
-    height: 70px;
-    background: #585858 url(../img/logo.png) 35px 20px no-repeat;
-    ul {
-        font-size: 0;
-        margin-left: 255px;
-        li {
-            -webkit-app-region: no-drag;
+.warp {
+    height: 100%;
+    width: 100%;
+    background: #f1f1f1;
+    // border: 1px solid #ddd;
+    box-sizing: border-box;
+    overflow: hidden;
+    .tool {
+        // display: none;
+        width: 100%;
+        // height: 50px;
+        background: #e4e4e4;
+        span {
             display: inline-block;
-            width: 185px;
-            height: 70px;
-            line-height: 70px;
+            height: 35px;
+            width: 35px;
+            line-height: 35px;
             text-align: center;
-            // border-bottom: 5px solid transparent;
-            background-size: cover;
-            font-size: 20px;
-            cursor: default;
-            position: relative;
-            &:before {
-                width: 0;
-                content: "";
-                height: 5px;
-                background-color: #ED833C;
-                position: absolute;
-                left: 50%;
-                bottom: 0;
-                transition: all .3s ease-out;
-            }
             &:hover {
                 color: #ED833C;
-                // border-color: #ED833C;
                 background: rgba(255, 255, 255, 0.1);
-                //      -webkit-transform: translateX( -100% ) rotateY( -180deg );
-                //  -moz-transform: translateX( -100% ) rotateY( -180deg );
-                //    -o-transform: translateX( -100% ) rotateY( -180deg );
-                //   transform: translateX( -100% ) rotateY( -180deg );
-                &:before {
-                    left: 0;
-                    width: 100%;
-                }
             }
-            &:active, &.active {
+            &:active {
                 color: #21A4E7;
-                border-color: #21A4E7;
-                background: rgba(255, 255, 255, 0.2);
-                &:before {
-                    background-color: #21A4E7;
-                    width: 100%;
-                    left: 0;
+                background: rgba(255, 255, 255, 0.3);
+            }
+        }
+    }
+    .sysmenu {
+        float: left;
+        span {
+            float: right;
+            &.fa-close {
+                &:hover {
+                    background: #dc0000;
+                    color: #fff;
+                }
+                &:active {
+                    background: #e22525;
                 }
             }
+        }
+    }
+    .main-tool {
+        position: absolute;
+        z-index: 999;
+        left: 10px;
+        top: 50%;
+        margin-top: -110px;
+        width: 85px;
+        background: rgba(221, 221, 221, 0.88);
+        border-radius: 5px;
+        overflow: hidden;
+        a {
+            -webkit-app-region: no-drag;
+            display: block;
+            height: 85px;
+            width: 85px;
+            border-radius: 5px;
+            text-align: center;
+            overflow: hidden;
             span {
-                margin-right: 15px;
+                display: block;
+                margin: 18px 0 10px;
+            }
+            &.active {
+                background: #ddd;
+            }
+            &:hover {
+                background: #ccc;
             }
         }
     }
-}
-
-.content {
-    -webkit-app-region:no-darg;
-    // display: none;
-    background: #585858 url(../img/logo-bg.jpg) center center no-repeat;
-    height: auto;
-    position: absolute;
-    top: 70px;
-    bottom: 0;
-    width:100%;
-    z-index: 0;
-}
-
-.tool {
-    // display: none;
-    width: 100%;
-    // height: 50px;
-    background: #666;
-    span {
-        display: inline-block;
-        height: 50px;
-        width: 50px;
-        line-height: 50px;
-        text-align: center;
-        &:hover {
-            color: #ED833C;
-            background: rgba(255, 255, 255, 0.1);
-        }
-        &:active {
-            color: #21A4E7;
-            background: rgba(255, 255, 255, 0.3);
+    .camer-tool {
+        -webkit-app-region: drag;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 80px;
+        background: rgba(221, 221, 221, .7);
+        span {
+            display: block;
+            width: 50px;
+            height: 50px;
+            background: #fff;
+            border-radius: 50%;
+            position: absolute;
+            top:15px;-webkit-app-region: no-drag;
+            &#shot {
+                left: 50%;
+                margin-left: -25px;
+                &:after{
+                    position: absolute;
+                    width: 54px;
+                    height: 54px;
+                    left: -3px;
+                    top:-3px;
+                    border-radius:50%;
+                    border: 1px solid #fff;
+                    content: ''
+                }
+                &:active{
+                    background: #eee;
+                     &:after{
+                        border-color: #eee; 
+                     }
+                }
+            }
+            &#thumb {
+                left: 20px;
+            }
+            &#filter {
+                right: 20px;
+            }
         }
     }
-}
-
-.con {
-    // background: #a9a9a9;
-    width: 100%;
-    position: absolute;
-    z-index: 1;
-    top: 50px;
-    bottom: 50px;
-    height: auto;
-    text-align: center;
-    perspective: 800px;
-    video {
-        display: block;
-        height: 100%;
-        width: 100%;
-        background: #666;
-        transition: all 1s ease-out;
-        transform-style: preserve-3d;
-    }
+    // .canvas-container {
+    //     width: 100% !important;
+    //     height: 100% !important;
+    // }
+    .canvas-container,
     canvas {
-        background: #ddd;
-        display: block;
-        // width: 100vw;
-        // height: 100vh;
-        // width:1204px;
-        // height: 530px;
+        position: absolute !important;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 35px;
+        width: auto !important;
+        height: auto !important;
         -webkit-app-region: no-drag;
     }
-    .flipY {
-        transform-origin: 100% 50%;
-        transform: translateX(-100%) rotateY(-180deg);
-    }
-    .flipX {
-        transform-origin: 50% 100%;
-        transform: translateY(-100%) rotateX(-180deg);
-    }
-    .r0, .r90, .r270.r180 {
-        transform-origin: 1 1;
-    }
-    .r0 {
-        transform: rotate(0deg);
-    }
-    .r90 {
-        transform: rotate(90deg);
-    }
-    .r180 {
-        transform: rotate(180deg);
-    }
-    .r270 {
-        transform: rotate(270deg);
-    }
-}
-
-.pos-bottom {
-    position: absolute;
-    text-align: center;
-    bottom: 0;
-}
-
-.pos-left {
-    position: absolute;
-    left: 0;
-}
-
-.pos-right {
-    position: absolute;
-    right: 0;
-}
-
-.pull-right {
-    float: right;
-}
-
-.pull-left {
-    float: left;
-}
-
-.sysmenu {
-    display: none;
-    position: absolute;
-    top: 0;
-    right: 0;
-    float: right;
-    background: none !important;
-    span {
-        float: right;
-        height: 40px;
-        width: 40px;
-        line-height: 40px;
-        color: #a8a8a8;
-        &.fa-close {
-            &:hover {
-                color: #dc0000;
-            }
-        }
-        &:hover {
-            background: none;
-        }
+    canvas {
+        top: 0 !important;
     }
 }

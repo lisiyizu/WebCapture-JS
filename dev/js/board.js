@@ -2,7 +2,11 @@
  * chuchur
  * 2016-08-31 17:53:44
  */
-window.$ = window.jQuery = require('./jquery.min.js');
+// import $ from './jquery.min';
+// import jQuery from './jquery.min';
+// window.$ =$;
+// window.jQuery=jQuery;
+window.$=window.jQuery= require('./jquery.min.js');
 
 (function (window) {
     var doc = document,
